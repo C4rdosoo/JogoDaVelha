@@ -129,4 +129,7 @@ public class Main {
         }
         return VAR(velha).isEmpty();
     }
+
+void main() {
 }
+
