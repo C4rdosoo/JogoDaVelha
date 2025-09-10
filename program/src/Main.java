@@ -10,31 +10,25 @@ public class Main {
         iniciar(velha);
 
         char simboloAtual = 'X';
-        boolean game = true;
-        String vitoria = " " ;
+        String vitoria;
 
-
-        while (game) {
+        while (true) {
             desenhaJogo(velha);
 
             // verifica se houve algum ganhador
-
-
-            vitoria = VAR(velha) ;
-            if(!vitoria.isEmpty()) {
-                System.out.printf("Jogador %s venceu%n" , vitoria);
+            vitoria = VAR(velha);
+            if (!vitoria.isEmpty()) {
+                System.out.printf("Jogador %s venceu!%n", vitoria);
                 break;
             }
 
-                // verifica se houve empate
-                if (empate(velha)) {
-                    System.out.println("!! Deu velha !!");
-                    break;
-                }
-
-
+            // verifica se houve empate
+            if (empate(velha)) {
+                System.out.println("!! Deu velha !!");
+                break;
             }
-            try{
+
+            try {
                 int[] jogada = jogar(scan, simboloAtual);
 
                 if (verificarJogada(velha, jogada, simboloAtual)) {
@@ -43,64 +37,57 @@ public class Main {
                     System.out.println("Jogada inválida, tente novamente.");
                 }
 
-            } catch (Exception e){
-                System.out.println("Erro");
+            } catch (Exception e) {
+                System.out.println("Entrada inválida. Tente novamente.");
                 scan.nextLine(); // limpa buffer
             }
-
         }
-        System.out.print("Fim de jogo ");
+
+        desenhaJogo(velha);
         scan.close();
     }
 
-    //iniciando o tabuleiro
-
-    private static void iniciar (campo[][] velha){
-        for (int i = 0; i <  3; i++){
-            for (int j = 0; j <  3; j++){
+    // inicia tabuleiro
+    private static void iniciar(campo[][] velha) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 velha[i][j] = new campo();
             }
         }
     }
 
-    //imprimindo o tabuleiro
-    public static void desenhaJogo (campo[][] velha){
-        for (int i = 0; i <  3; i++){
-
-       System.out.printf("%d %c | %c | %c%n" , i ,
-               velha[i][0].getSimbolo(),
-               velha[i][1].getSimbolo(),
-               velha[i][2].getSimbolo());
-       if (i < 2 ){
-           System.out.println("     ---------");
-       }
+    // imprime o tabuleiro
+    public static void desenhaJogo(campo[][] velha) {
+        System.out.println("    0   1   2");
+        for (int i = 0; i < 3; i++) {
+            System.out.printf("%d   %c | %c | %c%n",
+                    i,
+                    velha[i][0].getSimbolo(),
+                    velha[i][1].getSimbolo(),
+                    velha[i][2].getSimbolo());
+            if (i < 2) System.out.println("   ---+---+---");
         }
-        System.out.println("");
+        System.out.println();
     }
 
-// jogada do jogador
-    public static int[] jogar(Scanner scan , char sa ) {
-
-        int [] p  = new int[2];
-        System.out.printf("%s %c%n", "Quem joga : ",sa );
-        System.out.print("Informa a linha ");
+    // lê a jogada
+    public static int[] jogar(Scanner scan, char jogador) {
+        int[] p = new int[2];
+        System.out.printf("Quem joga: %c%n", jogador);
+        System.out.print("Informe a linha (0-2): ");
         p[0] = scan.nextInt();
-        System.out.print("Informa a coluna ");
+        System.out.print("Informe a coluna (0-2): ");
         p[1] = scan.nextInt();
         return p;
     }
-// registro de jogada
+
+    // registra a jogada (valida posição)
     public static boolean verificarJogada(campo[][] velha, int[] p, char simboloAtual) {
-        if (p[0] < 0 || p[0] > 2 || p[1] < 0 || p[1] > 2) {
-            return false; // posição inválida
-        }
+        if (p[0] < 0 || p[0] > 2 || p[1] < 0 || p[1] > 2) return false;
         return velha[p[0]][p[1]].setSimbolo(simboloAtual);
     }
 
-
-
-// implementar verificar  vitória
-
+    // checa vitória
     public static String VAR(campo[][] velha) {
         // linhas
         for (int i = 0; i < 3; i++) {
@@ -129,7 +116,4 @@ public class Main {
         }
         return VAR(velha).isEmpty();
     }
-
-void main() {
 }
-

@@ -4,20 +4,19 @@ public class campo {
     private char simbolo;
 
     public campo() {
-        this.simbolo = ' '; // campo vazio
+        this.simbolo = ' ';
     }
 
     public char getSimbolo() {
-        return this.simbolo;
+        return simbolo;
     }
 
-    public boolean setSimbolo(char simbolo) {
+    // Só permite marcar se estiver vazio
+    public boolean setSimbolo(char s) {
         if (this.simbolo == ' ') {
-            this.simbolo = simbolo;
+            this.simbolo = s;
             return true;
-        } else {
-            System.out.println("SELECIONE UM CAMPO DISPONIVEL");
-            return false;
         }
+        return false;
     }
 }
