@@ -17,7 +17,9 @@ public class Main {
         while (game) {
             desenhaJogo(velha);
 
-            // verifica se houve ganhador
+            // verifica se houve algum ganhador
+
+
             vitoria = VAR(velha) ;
             if(!vitoria.isEmpty()) {
                 System.out.printf("Jogador %s venceu%n" , vitoria);
